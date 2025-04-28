@@ -1,5 +1,7 @@
-import { PrimaryKey, Property } from '@mikro-orm/core';
+import { Entity, OneToOne, PrimaryKey, Property } from '@mikro-orm/core';
+import { Wallet } from 'src/wallet/entities/wallet.entity';
 
+@Entity()
 export class User {
   @PrimaryKey({ type: 'uuid', defaultRaw: 'gen_random_uuid()' })
   userId!: string;
@@ -8,7 +10,7 @@ export class User {
   name!: string;
 
   @Property()
-  surname1?: string;
+  surname?: string;
 
   @Property()
   email!: string;
@@ -16,6 +18,8 @@ export class User {
   @Property()
   password!: string;
 
-  @Property()
-  wallet!: string; //FIXME add relation with wallet
+  @OneToOne(() => Wallet, (wallet) => wallet.user, {
+    owner: true,
+  })
+  wallet!: Pick<Wallet, 'walletId'>;
 }
