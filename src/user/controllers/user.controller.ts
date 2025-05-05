@@ -8,6 +8,7 @@ import {
   Put,
   Delete,
   Get,
+  HttpStatus,
 } from '@nestjs/common';
 import { UserService } from '../services/user.service';
 import { UserRequestDto } from '../dto/user-request.dto';
@@ -15,33 +16,46 @@ import { UserResponseDto } from '../dto/user-response.dto';
 import { UserDtoAdapter } from '../adapters/user-dto.adapter';
 import { UserFilter } from '../filters/user.filter';
 import { UserModel } from '../models/user.model';
+import {
+  ApiBadRequestResponse,
+  ApiCreatedResponse,
+  ApiForbiddenResponse,
+  ApiInternalServerErrorResponse,
+  ApiNoContentResponse,
+  ApiNotFoundResponse,
+  ApiOkResponse,
+  ApiOperation,
+  ApiParam,
+  ApiSecurity,
+  ApiTags,
+} from '@nestjs/swagger';
 
 @Controller('v1/user')
-/*@ApiSecurity('api_key') // ?????
-@ApiTags('User') // ?????
+@ApiSecurity('api_key')
+@ApiTags('User')
 @ApiBadRequestResponse({
   description: 'Validation error',
-  type: HttpStatus.BAD_REQUEST,
+  type: HttpStatus.BAD_REQUEST.toString(),
 })
 @ApiForbiddenResponse({
   description: 'Forbbiden error',
-  type: HttpStatus.FORBIDDEN,
+  type: HttpStatus.FORBIDDEN.toString(),
 })
 @ApiInternalServerErrorResponse({
   description: 'Internal server error',
-  type: HttpStatus.INTERNAL_SERVER_ERROR,
-})*/
+  type: HttpStatus.INTERNAL_SERVER_ERROR.toString(),
+})
 export class UserController {
   constructor(private readonly userService: UserService) {}
 
   // ADMIN CONTROLLER
 
   @Post()
-  //@ApiOperation({ summary: 'Create a user' })
-  /*@ApiCreatedResponse({
+  @ApiOperation({ summary: 'Create a user' })
+  @ApiCreatedResponse({
     description: 'User created correctly',
     type: UserResponseDto,
-  })*/
+  })
   async create(
     @Body() createUserRequest: UserRequestDto,
   ): Promise<UserResponseDto> {
@@ -52,21 +66,21 @@ export class UserController {
   }
 
   @Put('/:userId')
-  /*@ApiOperation({ summary: 'Update user' })
+  @ApiOperation({ summary: 'Update user' })
   @ApiNoContentResponse({
     description: 'User updated',
-    type: HttpStatus.NO_CONTENT,
+    type: HttpStatus.NO_CONTENT.toString(),
   })
   @ApiNotFoundResponse({
     description: 'User not found',
-    type: HttpStatus.NOT_FOUND,
+    type: HttpStatus.NOT_FOUND.toString(),
   })
   @ApiParam({
     name: 'userId',
     type: String,
     required: true,
-    //example: 'add fake uuid'
-  })*/
+    example: '123e4567-e89b-12d3-a456-426614174000',
+  })
   async updateById(
     @Param('userId') userId: string,
     @Body() data: UserRequestDto,
@@ -81,21 +95,21 @@ export class UserController {
   }
 
   @Delete('/:userId')
-  /*@ApiOperation({ summary: 'Delete user' })
+  @ApiOperation({ summary: 'Delete user' })
   @ApiNoContentResponse({
     description: 'User deleted',
-    type: HttpStatus.NO_CONTENT,
+    type: HttpStatus.NO_CONTENT.toString(),
   })
   @ApiNotFoundResponse({
     description: 'User not found',
-    type: HttpStatus.NOT_FOUND,
+    type: HttpStatus.NOT_FOUND.toString(),
   })
   @ApiParam({
     name: 'userId',
     type: String,
     required: true,
-    //example: 'add fake uuid'
-  })*/
+    example: '123e4567-e89b-12d3-a456-426614174000',
+  })
   async deleteById(@Param('userId') userId: string): Promise<void> {
     const deleted = await this.userService.deleteById(userId);
     if (!deleted) {
@@ -106,24 +120,24 @@ export class UserController {
   // USER CONTROLLER
 
   @Get('/:userId')
-  /*@ApiOperation({
+  @ApiOperation({
     summary: 'Get user',
     description: 'Get one user by id',
   })
   @ApiOkResponse({
     description: 'Return the selected user',
-    type: HttpStatus.OK,
+    type: HttpStatus.OK.toString(),
   })
   @ApiNotFoundResponse({
     description: 'User not found',
-    type: HttpStatus.NOT_FOUND,
+    type: HttpStatus.NOT_FOUND.toString(),
   })
   @ApiParam({
     name: 'userId',
     type: String,
     required: true,
-    //example: 'add fake uuid'
-  })*/
+    example: '123e4567-e89b-12d3-a456-426614174000',
+  })
   async findOne(@Param('userId') userId: string): Promise<UserResponseDto> {
     const userResponse = await this.userService.findOne({
       userId,
@@ -137,23 +151,23 @@ export class UserController {
   }
 
   @Get()
-  /*@ApiOperation({
+  @ApiOperation({
     summary: 'Get all users',
   })
   @ApiOkResponse({
     description: 'Return all users',
-    type: HttpStatus.OK,
+    type: HttpStatus.OK.toString(),
   })
   @ApiNotFoundResponse({
     description: 'Users not found',
-    type: HttpStatus.NOT_FOUND,
+    type: HttpStatus.NOT_FOUND.toString(),
   })
   @ApiParam({
     name: 'filter',
     type: UserFilter,
     required: false,
     example: {},
-  })*/
+  })
   async find(@Param('filter') filter: UserFilter): Promise<UserResponseDto[]> {
     const usersModels = await this.userService.findAll(filter);
 
