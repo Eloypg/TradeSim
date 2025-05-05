@@ -36,7 +36,7 @@ export class MikroOrmUserRepository extends UserRepository {
     filter: FilterQuery<User>,
     options?: FindOptions<User>,
   ): Promise<UserModel[]> {
-    const entities: User[] = await this.em.fork().find(User, filter, options); //populate: true en options si fuese necesario al testear los endpoints
+    const entities: User[] = await this.em.fork().find(User, filter, options);
     const models: UserModel[] = entities.map(
       (user: User): UserModel => UserAdapter.fromEntityToModel(user),
     );
@@ -49,7 +49,7 @@ export class MikroOrmUserRepository extends UserRepository {
   ): Promise<UserModel | null> {
     const user: User | null = await this.em
       .fork()
-      .findOne(User, filter, options); // populate en options para inicializar la tabla de la relación
+      .findOne(User, filter, options);
     return user && UserAdapter.fromEntityToModel(user);
   }
 

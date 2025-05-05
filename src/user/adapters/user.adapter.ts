@@ -6,7 +6,7 @@ export class UserAdapter {
     const entity = new User();
     entity.userId = model.userId;
     entity.name = model.name;
-    entity.surname1 = model.surname1;
+    entity.surname = model.surname;
     entity.email = model.email;
     entity.password = model.password;
     entity.wallet = model.wallet;
@@ -17,7 +17,7 @@ export class UserAdapter {
     const model = new UserModel();
     model.userId = entity.userId;
     model.name = entity.name;
-    model.surname1 = entity.surname1;
+    model.surname = entity.surname;
     model.email = entity.email;
     model.password = entity.password;
     model.wallet = entity.wallet;
