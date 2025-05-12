@@ -2,17 +2,6 @@ import { User } from '../entities/user.entity';
 import { UserModel } from '../models/user.model';
 
 export class UserAdapter {
-  static fromModelToEntity(model: UserModel): User {
-    const entity = new User();
-    entity.userId = model.userId;
-    entity.name = model.name;
-    entity.surname = model.surname;
-    entity.email = model.email;
-    entity.password = model.password;
-    entity.wallet = model.wallet;
-    return entity;
-  }
-
   static fromEntityToModel(entity: User): UserModel {
     const model = new UserModel();
     model.userId = entity.userId;

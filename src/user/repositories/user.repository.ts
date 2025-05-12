@@ -1,6 +1,7 @@
 import { FilterQuery, FindOptions } from '@mikro-orm/core';
 import { UserModel } from '../models/user.model';
 import { User } from '../entities/user.entity';
+import { UpdateUserRequest } from '../types/update-user.request.type';
 
 export abstract class UserRepository {
   abstract insert(
@@ -17,14 +18,10 @@ export abstract class UserRepository {
     options?: FindOptions<User>,
   ): Promise<UserModel | null>;
 
-  abstract delete(
-    filter: FilterQuery<User>,
-    options?: FindOptions<User>,
-  ): Promise<number>;
-
   abstract update(
-    filter: FilterQuery<User>,
-    update: Partial<UserModel>,
-    options?: FindOptions<User>,
-  ): Promise<number>;
+    id: string,
+    updateRequest: UpdateUserRequest,
+  ): Promise<UserModel>;
+
+  abstract delete(id: string): Promise<UserModel>;
 }

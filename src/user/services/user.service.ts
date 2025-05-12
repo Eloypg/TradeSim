@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { UserModel } from '../models/user.model';
 import { UserRepository } from '../repositories/user.repository';
 import { UserFilter } from '../filters/user.filter';
+import { UpdateUserRequest } from '../types/update-user.request.type';
 
 @Injectable()
 export class UserService {
@@ -29,9 +30,9 @@ export class UserService {
 
   async updateById(
     userId: string,
-    updateRequest: Partial<UserModel>,
+    updateRequest: UpdateUserRequest,
   ): Promise<boolean> {
-    const updated = await this.userRepository.update({ userId }, updateRequest);
+    const updated = await this.userRepository.update(userId, updateRequest);
     return !!updated;
   }
 
@@ -40,7 +41,7 @@ export class UserService {
       return false;
     }
 
-    const deleteResult = await this.userRepository.delete({ userId });
+    const deleteResult = await this.userRepository.delete(userId);
     return !!deleteResult;
   }
 }

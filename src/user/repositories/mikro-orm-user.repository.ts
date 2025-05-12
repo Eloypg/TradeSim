@@ -5,6 +5,7 @@ import { randomUUID } from 'crypto';
 import { User } from '../entities/user.entity';
 import { UserAdapter } from '../adapters/user.adapter';
 import { Wallet } from 'src/wallet/entities/wallet.entity';
+import { UpdateUserRequest } from '../types/update-user.request.type';
 
 export class MikroOrmUserRepository extends UserRepository {
   constructor(private readonly em: EntityManager) {
@@ -17,16 +18,13 @@ export class MikroOrmUserRepository extends UserRepository {
     const userId = randomUUID();
     const wallet = new Wallet();
     wallet.walletId = randomUUID();
-    const userModel: UserModel = {
+
+    const user: User = this.em.fork().create(User, {
       ...request,
       userId,
       wallet,
-    };
-    const user = this.em
-      .fork()
-      .create(User, UserAdapter.fromModelToEntity(userModel));
+    });
 
-    wallet.user = user;
     await this.em.fork().persistAndFlush(user);
 
     return UserAdapter.fromEntityToModel(user);
@@ -53,18 +51,28 @@ export class MikroOrmUserRepository extends UserRepository {
     return user && UserAdapter.fromEntityToModel(user);
   }
 
-  async delete(
-    filter: FilterQuery<User>,
-    options?: FindOptions<User>,
-  ): Promise<number> {
-    return await this.em.fork().nativeDelete(User, filter, options);
+  async update(
+    id: string,
+    updateRequest: UpdateUserRequest,
+  ): Promise<UserModel> {
+    const entMan = this.em.fork();
+
+    const userToUpdate = entMan.getReference(User, id);
+
+    const updatedUser = entMan.assign(userToUpdate, { ...updateRequest });
+
+    await entMan.persistAndFlush(updatedUser);
+
+    return UserAdapter.fromEntityToModel(updatedUser);
   }
 
-  async update(
-    filter: FilterQuery<User>,
-    update: Partial<UserModel>,
-    options?: FindOptions<User>,
-  ): Promise<number> {
-    return await this.em.fork().nativeUpdate(User, filter, update, options);
+  async delete(id: string): Promise<UserModel> {
+    const entMan = this.em.fork();
+
+    const user = entMan.getReference(User, id);
+
+    await entMan.remove(user).flush();
+
+    return UserAdapter.fromEntityToModel(user);
   }
 }

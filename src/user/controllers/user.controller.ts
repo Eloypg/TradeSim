@@ -15,7 +15,6 @@ import { UserRequestDto } from '../dto/user-request.dto';
 import { UserResponseDto } from '../dto/user-response.dto';
 import { UserDtoAdapter } from '../adapters/user-dto.adapter';
 import { UserFilter } from '../filters/user.filter';
-import { UserModel } from '../models/user.model';
 import {
   ApiBadRequestResponse,
   ApiCreatedResponse,
@@ -175,11 +174,9 @@ export class UserController {
       throw new NotFoundException('Users not found');
     }
 
-    const usersResponse = usersModels.map(
-      (userModel: UserModel): UserResponseDto => {
-        return UserDtoAdapter.fromModelToResponseDto(userModel);
-      },
-    );
+    const usersResponse = usersModels.map((userModel): UserResponseDto => {
+      return UserDtoAdapter.fromModelToResponseDto(userModel);
+    });
 
     return usersResponse;
   }
