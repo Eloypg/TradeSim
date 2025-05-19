@@ -1,5 +1,5 @@
 import { Entity, OneToOne, PrimaryKey } from '@mikro-orm/core';
-import { User } from 'src/user/entities/user.entity';
+import { User } from '../../user/entities/user.entity';
 
 @Entity()
 export class Wallet {
@@ -7,5 +7,5 @@ export class Wallet {
   walletId!: string;
 
   @OneToOne(() => User, (user) => user.wallet)
-  user!: Pick<User, 'userId'>;
+  user!: User;
 }

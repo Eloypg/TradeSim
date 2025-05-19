@@ -5,7 +5,7 @@ import {
   PrimaryKeyProp,
   Property,
 } from '@mikro-orm/core';
-import { Wallet } from 'src/wallet/entities/wallet.entity';
+import { Wallet } from '../../wallet/entities/wallet.entity';
 
 @Entity()
 export class User {

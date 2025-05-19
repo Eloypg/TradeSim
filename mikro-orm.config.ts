@@ -1,22 +1,23 @@
-// mikro-orm.config.ts
-import { MikroOrmModuleSyncOptions } from '@mikro-orm/nestjs';
+import { Options } from '@mikro-orm/core';
 import { PostgreSqlDriver } from '@mikro-orm/postgresql';
-import * as dotenv from 'dotenv';
+import { join } from 'path';
 
-dotenv.config();
-
-const isDev = process.env.NODE_ENV !== 'production';
-
-const config: MikroOrmModuleSyncOptions = {
+const config: Options<PostgreSqlDriver> = {
+  entities: [join(__dirname, 'dist/**/*.entity.js')],
+  entitiesTs: [join(__dirname, 'src/**/*.entity.ts')],
+  dbName: 'nestjs_db',
+  user: 'postgres',
+  password: 'postgres',
+  host: 'localhost',
+  port: 5432,
   driver: PostgreSqlDriver,
-  host: process.env.DB_HOST,
-  port: Number(process.env.DB_PORT),
-  user: process.env.DB_USER,
-  password: process.env.DB_PASSWORD,
-  dbName: process.env.DB_NAME,
   debug: true,
-  autoLoadEntities: true,
-  entities: isDev ? ['./src/**/*.entity.ts'] : ['./dist/**/*.entity.js'],
+  forceEntityConstructor: true,
+  migrations: {
+    path: join(__dirname, 'migrations'),
+    pathTs: join(__dirname, 'migrations'),
+    disableForeignKeys: false,
+  },
 };
 
 export default config;
