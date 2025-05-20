@@ -8,24 +8,26 @@ import { Wallet } from 'src/wallet/entities/wallet.entity';
 import { UpdateUserRequest } from '../types/update-user.request.type';
 
 export class MikroOrmUserRepository extends UserRepository {
-  constructor(private readonly em: EntityManager) {
+  constructor(private readonly entityManager: EntityManager) {
     super();
   }
 
   async insert(
     request: Omit<UserModel, 'userId' | 'wallet'>,
   ): Promise<UserModel> {
+    const em = this.entityManager.fork();
+
     const userId = randomUUID();
     const wallet = new Wallet();
     wallet.walletId = randomUUID();
 
-    const user: User = this.em.fork().create(User, {
+    const user: User = em.create(User, {
       ...request,
       userId,
       wallet,
     });
 
-    await this.em.fork().persistAndFlush(user);
+    await em.persistAndFlush(user);
 
     return UserAdapter.fromEntityToModel(user);
   }
@@ -34,7 +36,9 @@ export class MikroOrmUserRepository extends UserRepository {
     filter: FilterQuery<User>,
     options?: FindOptions<User>,
   ): Promise<UserModel[]> {
-    const entities: User[] = await this.em.fork().find(User, filter, options);
+    const em = this.entityManager.fork();
+
+    const entities: User[] = await em.find(User, filter, options);
     const models: UserModel[] = entities.map(
       (user: User): UserModel => UserAdapter.fromEntityToModel(user),
     );
@@ -45,9 +49,9 @@ export class MikroOrmUserRepository extends UserRepository {
     filter: FilterQuery<User>,
     options?: FindOptions<User>,
   ): Promise<UserModel | null> {
-    const user: User | null = await this.em
-      .fork()
-      .findOne(User, filter, options);
+    const em = this.entityManager.fork();
+
+    const user: User | null = await em.findOne(User, filter, options);
     return user && UserAdapter.fromEntityToModel(user);
   }
 
@@ -55,23 +59,23 @@ export class MikroOrmUserRepository extends UserRepository {
     id: string,
     updateRequest: UpdateUserRequest,
   ): Promise<UserModel> {
-    const entMan = this.em.fork();
+    const em = this.entityManager.fork();
 
-    const userToUpdate = entMan.getReference(User, id);
+    const userToUpdate = em.getReference(User, id);
 
-    const updatedUser = entMan.assign(userToUpdate, { ...updateRequest });
+    const updatedUser = em.assign(userToUpdate, { ...updateRequest });
 
-    await entMan.persistAndFlush(updatedUser);
+    await em.persistAndFlush(updatedUser);
 
     return UserAdapter.fromEntityToModel(updatedUser);
   }
 
   async delete(id: string): Promise<UserModel> {
-    const entMan = this.em.fork();
+    const em = this.entityManager.fork();
 
-    const user = entMan.getReference(User, id);
+    const user = em.getReference(User, id);
 
-    await entMan.remove(user).flush();
+    await em.remove(user).flush();
 
     return UserAdapter.fromEntityToModel(user);
   }

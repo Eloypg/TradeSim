@@ -3,7 +3,7 @@ import { PostgreSqlDriver } from '@mikro-orm/postgresql';
 import { join } from 'path';
 
 const config: Options<PostgreSqlDriver> = {
-  entities: [join(__dirname, 'dist/**/*.entity.js')],
+  entities: [join(__dirname, '**/*.entity.js')],
   entitiesTs: [join(__dirname, 'src/**/*.entity.ts')],
   dbName: 'nestjs_db',
   user: 'postgres',
