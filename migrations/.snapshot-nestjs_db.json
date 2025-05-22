@@ -6,6 +6,77 @@
   "tables": [
     {
       "columns": {
+        "tutorial_id": {
+          "name": "tutorial_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "gen_random_uuid()",
+          "mappedType": "uuid"
+        },
+        "title": {
+          "name": "title",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "description": {
+          "name": "description",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "url": {
+          "name": "url",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "posted_at": {
+          "name": "posted_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        }
+      },
+      "name": "tutorial",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "tutorial_pkey",
+          "columnNames": [
+            "tutorial_id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {},
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
         "wallet_id": {
           "name": "wallet_id",
           "type": "uuid",
@@ -15,6 +86,38 @@
           "nullable": false,
           "default": "gen_random_uuid()",
           "mappedType": "uuid"
+        },
+        "balance": {
+          "name": "balance",
+          "type": "numeric(15,2)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "precision": 15,
+          "scale": 2,
+          "default": "0",
+          "mappedType": "decimal"
+        },
+        "created_at": {
+          "name": "created_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "updated_at": {
+          "name": "updated_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
         }
       },
       "name": "wallet",
@@ -132,6 +235,215 @@
             "wallet_id"
           ],
           "referencedTableName": "public.wallet",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "cripto_id": {
+          "name": "cripto_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "gen_random_uuid()",
+          "mappedType": "uuid"
+        },
+        "symbol": {
+          "name": "symbol",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "name": {
+          "name": "name",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "precision": {
+          "name": "precision",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "8",
+          "mappedType": "integer"
+        },
+        "current_price": {
+          "name": "current_price",
+          "type": "numeric(20,8)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "precision": 20,
+          "scale": 8,
+          "mappedType": "decimal"
+        },
+        "wallet_wallet_id": {
+          "name": "wallet_wallet_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "cripto",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "cripto_pkey",
+          "columnNames": [
+            "cripto_id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "cripto_wallet_wallet_id_foreign": {
+          "constraintName": "cripto_wallet_wallet_id_foreign",
+          "columnNames": [
+            "wallet_wallet_id"
+          ],
+          "localTableName": "public.cripto",
+          "referencedColumnNames": [
+            "wallet_id"
+          ],
+          "referencedTableName": "public.wallet",
+          "updateRule": "cascade"
+        }
+      },
+      "nativeEnums": {}
+    },
+    {
+      "columns": {
+        "transaction_id": {
+          "name": "transaction_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "default": "gen_random_uuid()",
+          "mappedType": "uuid"
+        },
+        "type": {
+          "name": "type",
+          "type": "varchar(255)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 255,
+          "mappedType": "string"
+        },
+        "amount": {
+          "name": "amount",
+          "type": "numeric(20,8)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "precision": 20,
+          "scale": 8,
+          "mappedType": "decimal"
+        },
+        "price_per_unit": {
+          "name": "price_per_unit",
+          "type": "int",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "integer"
+        },
+        "executed_at": {
+          "name": "executed_at",
+          "type": "timestamptz",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "length": 6,
+          "mappedType": "datetime"
+        },
+        "wallet_wallet_id": {
+          "name": "wallet_wallet_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "mappedType": "uuid"
+        },
+        "cripto_cripto_id": {
+          "name": "cripto_cripto_id",
+          "type": "uuid",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": true,
+          "mappedType": "uuid"
+        }
+      },
+      "name": "transaction",
+      "schema": "public",
+      "indexes": [
+        {
+          "keyName": "transaction_pkey",
+          "columnNames": [
+            "transaction_id"
+          ],
+          "composite": false,
+          "constraint": true,
+          "primary": true,
+          "unique": true
+        }
+      ],
+      "checks": [],
+      "foreignKeys": {
+        "transaction_wallet_wallet_id_foreign": {
+          "constraintName": "transaction_wallet_wallet_id_foreign",
+          "columnNames": [
+            "wallet_wallet_id"
+          ],
+          "localTableName": "public.transaction",
+          "referencedColumnNames": [
+            "wallet_id"
+          ],
+          "referencedTableName": "public.wallet",
+          "updateRule": "cascade"
+        },
+        "transaction_cripto_cripto_id_foreign": {
+          "constraintName": "transaction_cripto_cripto_id_foreign",
+          "columnNames": [
+            "cripto_cripto_id"
+          ],
+          "localTableName": "public.transaction",
+          "referencedColumnNames": [
+            "cripto_id"
+          ],
+          "referencedTableName": "public.cripto",
+          "deleteRule": "set null",
           "updateRule": "cascade"
         }
       },

@@ -17,11 +17,17 @@ export class MikroOrmUserRepository extends UserRepository {
   ): Promise<UserModel> {
     const em = this.entityManager.fork();
 
+    let user = new User();
     const userId = randomUUID();
-    const wallet = new Wallet();
-    wallet.walletId = randomUUID();
 
-    const user: User = em.create(User, {
+    const wallet: Wallet = em.create(Wallet, {
+      walletId: randomUUID(),
+      balance: 0,
+      createdAt: new Date(),
+      user,
+    });
+
+    user = em.create(User, {
       ...request,
       userId,
       wallet,
