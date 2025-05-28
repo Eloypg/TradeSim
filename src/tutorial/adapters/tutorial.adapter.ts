@@ -1,4 +1,4 @@
-import { CreateTutorialRequestDto } from '../dto/create-tutorial-request.dto';
+import { TutorialRequestDto } from '../dto/tutorial-request.dto';
 import { TutorialResponseDto } from '../dto/tutorial-response.dto';
 import { Tutorial } from '../entities/tutorial.entity';
 import { TutorialModel } from '../models/tutorial.model';
@@ -15,7 +15,7 @@ export class TutorialAdapter {
   }
 
   static fromRequestDtoToModel(
-    dto: CreateTutorialRequestDto,
+    dto: TutorialRequestDto,
   ): Omit<TutorialModel, 'tutorialId' | 'postedAt'> {
     const model: Omit<TutorialModel, 'tutorialId' | 'postedAt'> =
       new TutorialModel();
@@ -27,7 +27,6 @@ export class TutorialAdapter {
 
   static fromModelToResponseDto(model: TutorialModel): TutorialResponseDto {
     const dto: TutorialResponseDto = new TutorialResponseDto();
-    dto.tutorialId = model.tutorialId;
     dto.title = model.title;
     dto.description = model.description;
     dto.url = model.url;

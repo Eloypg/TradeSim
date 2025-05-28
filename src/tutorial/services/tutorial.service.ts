@@ -1,12 +1,12 @@
 import { Injectable, NotFoundException } from '@nestjs/common';
-import { MikroOrmTutorialRepository } from '../repositories/mikro-orm-tutorial.repository';
 import { TutorialModel } from '../models/tutorial.model';
 import { UpdateRequest } from '../types/update-request.type';
 import { FilterQuery, FindOptions } from '@mikro-orm/postgresql';
+import { TutorialRepository } from '../repositories/tutorial.repository';
 
 @Injectable()
 export class TutorialService {
-  constructor(private readonly tutorialRepo: MikroOrmTutorialRepository) {}
+  constructor(private readonly tutorialRepo: TutorialRepository) {}
 
   async create(
     data: Omit<TutorialModel, 'tutorialId' | 'postedAt'>,
