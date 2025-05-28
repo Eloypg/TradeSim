@@ -1,5 +1,5 @@
-import { EntityManager, FilterQuery, FindOptions } from '@mikro-orm/postgresql';
-import { NotFoundException } from '@nestjs/common';
+import { EntityManager, FilterQuery, FindOptions } from '@mikro-orm/core';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Tutorial } from '../entities/tutorial.entity';
 import { randomUUID } from 'crypto';
 import { TutorialModel } from '../models/tutorial.model';
@@ -7,6 +7,7 @@ import { TutorialAdapter } from '../adapters/tutorial.adapter';
 import { UpdateRequest } from '../types/update-request.type';
 import { TutorialRepository } from './tutorial.repository';
 
+@Injectable()
 export class MikroOrmTutorialRepository extends TutorialRepository {
   constructor(private readonly em: EntityManager) {
     super();

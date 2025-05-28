@@ -1,4 +1,4 @@
-import { EntityManager, FilterQuery, FindOptions } from '@mikro-orm/postgresql';
+import { EntityManager, FilterQuery, FindOptions } from '@mikro-orm/core';
 import { UserRepository } from './user.repository';
 import { UserModel } from '../models/user.model';
 import { randomUUID } from 'crypto';
@@ -6,7 +6,9 @@ import { User } from '../entities/user.entity';
 import { UserAdapter } from '../adapters/user.adapter';
 import { Wallet } from 'src/wallet/entities/wallet.entity';
 import { UpdateUserRequest } from '../types/update-user.request.type';
+import { Injectable, NotFoundException } from '@nestjs/common';
 
+@Injectable()
 export class MikroOrmUserRepository extends UserRepository {
   constructor(private readonly entityManager: EntityManager) {
     super();
@@ -67,9 +69,19 @@ export class MikroOrmUserRepository extends UserRepository {
   ): Promise<UserModel> {
     const em = this.entityManager.fork();
 
-    const userToUpdate = em.getReference(User, id);
+    const userToUpdateReference = em.getReference(User, id);
 
-    const updatedUser = em.assign(userToUpdate, { ...updateRequest });
+    const userToUpdate = await em.findOne(User, userToUpdateReference);
+
+    if (!userToUpdate) {
+      throw new NotFoundException();
+    }
+
+    const updatedUser = em.assign(userToUpdate, {
+      ...updateRequest,
+      userId: id,
+      wallet: userToUpdate.wallet,
+    });
 
     await em.persistAndFlush(updatedUser);
 

@@ -6,14 +6,14 @@ export class TutorialRequestDto {
   @ApiProperty({ required: true, example: 'Tu primera compra' })
   @IsString()
   @IsNotEmpty()
-  title!: string;
+  title: string;
 
   @ApiProperty({ required: true, example: 'Descripción de ejemplo' })
   @IsString()
   @IsNotEmpty()
-  description!: string;
+  description: string;
 
   @ApiProperty({ required: true, example: 'www.example.com' })
   @IsUrl()
-  url!: string;
+  url: string;
 }

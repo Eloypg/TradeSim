@@ -2,13 +2,13 @@ import {
   Controller,
   Post,
   Get,
-  Patch,
   Delete,
   Param,
   Body,
   Query,
   ParseUUIDPipe,
   HttpStatus,
+  Put,
 } from '@nestjs/common';
 import { TutorialService } from '../services/tutorial.service';
 import { TutorialModel } from '../models/tutorial.model';
@@ -83,14 +83,14 @@ export class TutorialController {
     return models.map((model) => TutorialAdapter.fromModelToResponseDto(model));
   }
 
-  @Patch(':tutorialId')
+  @Put(':tutorialId')
   @ApiOperation({ summary: 'Update tutorial' })
   @ApiNoContentResponse({ description: 'Tutorial updated' })
   @ApiNotFoundResponse({ description: 'Tutorial not found' })
   @ApiParam({ name: 'tutorialId', type: String, required: true })
   async update(
     @Param('tutorialId', new ParseUUIDPipe()) tutorialId: string,
-    @Body() data: Partial<TutorialRequestDto>,
+    @Body() data: TutorialRequestDto,
   ): Promise<TutorialResponseDto> {
     const model = await this.tutorialService.update(tutorialId, data);
     return TutorialAdapter.fromModelToResponseDto(model);
