@@ -1,3 +1,5 @@
+import { CreateTutorialRequestDto } from '../dto/create-tutorial-request.dto';
+import { TutorialResponseDto } from '../dto/tutorial-response.dto';
 import { Tutorial } from '../entities/tutorial.entity';
 import { TutorialModel } from '../models/tutorial.model';
 
@@ -10,5 +12,26 @@ export class TutorialAdapter {
     model.url = entity.url;
     model.postedAt = entity.postedAt;
     return model;
+  }
+
+  static fromRequestDtoToModel(
+    dto: CreateTutorialRequestDto,
+  ): Omit<TutorialModel, 'tutorialId' | 'postedAt'> {
+    const model: Omit<TutorialModel, 'tutorialId' | 'postedAt'> =
+      new TutorialModel();
+    model.title = dto.title;
+    model.description = dto.description;
+    model.url = dto.url;
+    return model;
+  }
+
+  static fromModelToResponseDto(model: TutorialModel): TutorialResponseDto {
+    const dto: TutorialResponseDto = new TutorialResponseDto();
+    dto.tutorialId = model.tutorialId;
+    dto.title = model.title;
+    dto.description = model.description;
+    dto.url = model.url;
+    dto.postedAt = model.postedAt;
+    return dto;
   }
 }

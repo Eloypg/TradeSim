@@ -14,7 +14,7 @@ export class MikroOrmTutorialRepository extends TutorialRepository {
   }
 
   async insert(
-    data: Omit<TutorialModel, 'tutorialId'>,
+    data: Omit<TutorialModel, 'tutorialId' | 'postedAt'>,
   ): Promise<TutorialModel> {
     const tutorial: Tutorial = this.em.fork().create(Tutorial, {
       ...data,

@@ -4,7 +4,7 @@ import { UpdateRequest } from '../types/update-request.type';
 
 export abstract class TutorialRepository {
   abstract insert(
-    data: Omit<TutorialModel, 'tutorialId'>,
+    data: Omit<TutorialModel, 'tutorialId' | 'postedAt'>,
   ): Promise<TutorialModel>;
   abstract findOneByName(title: string): Promise<TutorialModel | null>;
   abstract findAll(
