@@ -16,8 +16,8 @@ export class Cripto {
   precision: number = 8;
 
   @Property({ type: 'decimal', precision: 20, scale: 8 })
-  currentPrice!: number;
+  currentUnitPrice!: number;
 
   @ManyToOne(() => Wallet)
-  wallet?: Wallet;
+  wallet!: Wallet;
 }
