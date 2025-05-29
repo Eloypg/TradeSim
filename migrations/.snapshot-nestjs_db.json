@@ -108,16 +108,6 @@
           "nullable": false,
           "length": 6,
           "mappedType": "datetime"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": true,
-          "length": 6,
-          "mappedType": "datetime"
         }
       },
       "name": "wallet",
@@ -282,8 +272,8 @@
           "default": "8",
           "mappedType": "integer"
         },
-        "current_price": {
-          "name": "current_price",
+        "current_unit_price": {
+          "name": "current_unit_price",
           "type": "numeric(20,8)",
           "unsigned": false,
           "autoincrement": false,

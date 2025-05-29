@@ -1,4 +1,4 @@
-import { FilterQuery, FindOptions } from '@mikro-orm/postgresql';
+import { FilterQuery, FindOptions } from '@mikro-orm/core';
 import { TutorialModel } from '../models/tutorial.model';
 import { UpdateRequest } from '../types/update-request.type';
 

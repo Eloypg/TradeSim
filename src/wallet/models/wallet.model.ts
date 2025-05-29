@@ -6,7 +6,6 @@ export class WalletModel {
   walletId!: string;
   balance: number;
   createdAt: Date;
-  updatedAt?: Date;
   user!: Pick<UserModel, 'userId'>;
   criptos?: CriptoModel[];
   transactions?: TransactionModel[];

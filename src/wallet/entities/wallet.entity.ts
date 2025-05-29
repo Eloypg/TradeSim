@@ -21,9 +21,6 @@ export class Wallet {
   @Property()
   createdAt: Date = new Date();
 
-  @Property({ nullable: true })
-  updatedAt?: Date;
-
   @OneToOne(() => User, (user) => user.wallet)
   user!: User;
 
