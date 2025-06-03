@@ -10,5 +10,5 @@ export class TransactionModel {
   totalPriceTransaction: number;
   executedAt: Date;
   wallet: Pick<WalletModel, 'walletId'>;
-  cripto: Pick<CriptoModel, 'criptoId'>;
+  cripto: Omit<CriptoModel, 'criptoId'>;
 }

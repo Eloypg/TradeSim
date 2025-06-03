@@ -1,3 +1,4 @@
+import { CriptoReferenceResponseDto } from '../../transaction/dto/transaction-response.dto';
 import { Cripto } from '../entities/cripto.entity';
 import { CriptoModel } from '../models/cripto.model';
 
@@ -11,5 +12,19 @@ export class CriptoAdapter {
     model.currentUnitPrice = entity.currentUnitPrice;
     model.wallet = entity.wallet;
     return model;
+  }
+
+  static fromModelToReferenceResponseDto(
+    model: Omit<CriptoModel, 'criptoId'>,
+  ): CriptoReferenceResponseDto {
+    return {
+      symbol: model.symbol,
+      name: model.name,
+      precision: model.precision,
+      currentUnitPrice: model.currentUnitPrice,
+      wallet: {
+        walletId: model.wallet.walletId,
+      },
+    };
   }
 }
