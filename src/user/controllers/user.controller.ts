@@ -1,7 +1,6 @@
 import {
   Body,
   Controller,
-  //HttpStatus,
   NotFoundException,
   Param,
   Post,
@@ -25,12 +24,10 @@ import {
   ApiOkResponse,
   ApiOperation,
   ApiParam,
-  ApiSecurity,
   ApiTags,
 } from '@nestjs/swagger';
 
 @Controller('v1/user')
-@ApiSecurity('api_key')
 @ApiTags('User')
 @ApiBadRequestResponse({
   description: 'Validation error',

@@ -5,9 +5,10 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import { User } from './entities/user.entity';
 import { UserRepository } from './repositories/user.repository';
 import { MikroOrmUserRepository } from './repositories/mikro-orm-user.repository';
+import { Wallet } from 'src/wallet/entities/wallet.entity';
 
 @Module({
-  imports: [MikroOrmModule.forFeature([User])],
+  imports: [MikroOrmModule.forFeature([User, Wallet])],
   controllers: [UserController],
   providers: [
     UserService,
