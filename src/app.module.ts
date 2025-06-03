@@ -6,6 +6,7 @@ import { WalletModule } from './wallet/wallet.module';
 import { Tutorial } from './tutorial/entities/tutorial.entity';
 import { Transaction } from './transaction/entities/transaction.entity';
 import { Cripto } from './cripto/entities/cripto.entity';
+import { AppController } from './app.controller';
 
 @Module({
   imports: [
@@ -16,7 +17,7 @@ import { Cripto } from './cripto/entities/cripto.entity';
     Transaction,
     Cripto,
   ],
-  controllers: [],
+  controllers: [AppController],
   providers: [],
 })
 export class AppModule {}
