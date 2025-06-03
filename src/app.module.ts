@@ -3,9 +3,9 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import mikroOrmConfig from '../mikro-orm.config';
 import { UserModule } from './user/user.module';
 import { WalletModule } from './wallet/wallet.module';
-import { Transaction } from './transaction/entities/transaction.entity';
-import { Cripto } from './cripto/entities/cripto.entity';
+//import { Cripto } from './cripto/entities/cripto.entity';
 import { TutorialModule } from './tutorial/tutorial.module';
+import { TransactionModule } from './transaction/transaction.module';
 
 @Module({
   imports: [
@@ -13,8 +13,8 @@ import { TutorialModule } from './tutorial/tutorial.module';
     UserModule,
     WalletModule,
     TutorialModule,
-    Transaction,
-    Cripto,
+    TransactionModule,
+    //Cripto,
   ],
   controllers: [],
   providers: [],

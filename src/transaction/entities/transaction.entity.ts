@@ -15,10 +15,10 @@ export class Transaction {
   amount!: number;
 
   @Property({ type: 'decimal', precision: 20, scale: 8 })
-  criptoPricePerUnit: number;
+  criptoPricePerUnit: number; //Cuando se cree se cogerá el unitPrice de cripto
 
   @Property({ type: 'decimal', precision: 20, scale: 8 })
-  totalPriceTransaction: number;
+  totalPriceTransaction: number; //Se calculará al crear la transaction
 
   @Property()
   executedAt: Date = new Date();

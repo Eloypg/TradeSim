@@ -23,8 +23,8 @@ export class TutorialService {
   }
 
   async getAll(
-    filter: FilterQuery<TutorialModel> = {},
-    options: FindOptions<TutorialModel> = {},
+    filter: FilterQuery<TutorialModel>,
+    options: FindOptions<TutorialModel>,
   ): Promise<TutorialModel[]> {
     return this.tutorialRepo.findAll(filter, options);
   }
