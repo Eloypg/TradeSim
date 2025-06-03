@@ -3,9 +3,8 @@ import { MikroOrmModule } from '@mikro-orm/nestjs';
 import mikroOrmConfig from '../mikro-orm.config';
 import { UserModule } from './user/user.module';
 import { WalletModule } from './wallet/wallet.module';
-import { Tutorial } from './tutorial/entities/tutorial.entity';
-import { Transaction } from './transaction/entities/transaction.entity';
-import { Cripto } from './cripto/entities/cripto.entity';
+import { TutorialModule } from './tutorial/tutorial.module';
+import { TransactionModule } from './transaction/transaction.module';
 import { AppController } from './app.controller';
 
 @Module({
@@ -13,9 +12,8 @@ import { AppController } from './app.controller';
     MikroOrmModule.forRoot(mikroOrmConfig),
     UserModule,
     WalletModule,
-    Tutorial,
-    Transaction,
-    Cripto,
+    TutorialModule,
+    TransactionModule,
   ],
   controllers: [AppController],
   providers: [],

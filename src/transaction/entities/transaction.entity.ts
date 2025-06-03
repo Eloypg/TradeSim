@@ -14,8 +14,11 @@ export class Transaction {
   @Property({ type: 'decimal', precision: 20, scale: 8 })
   amount!: number;
 
-  @Property({ nullable: true })
-  pricePerUnit?: number;
+  @Property({ type: 'decimal', precision: 20, scale: 8 })
+  criptoPricePerUnit: number; //Cuando se cree se cogerá el unitPrice de cripto
+
+  @Property({ type: 'decimal', precision: 20, scale: 8 })
+  totalPriceTransaction: number; //Se calculará al crear la transaction
 
   @Property()
   executedAt: Date = new Date();
@@ -23,6 +26,6 @@ export class Transaction {
   @ManyToOne(() => Wallet)
   wallet!: Wallet;
 
-  @ManyToOne(() => Cripto, { nullable: true })
-  cripto?: Cripto;
+  @ManyToOne(() => Cripto)
+  cripto!: Cripto;
 }

@@ -108,16 +108,6 @@
           "nullable": false,
           "length": 6,
           "mappedType": "datetime"
-        },
-        "updated_at": {
-          "name": "updated_at",
-          "type": "timestamptz",
-          "unsigned": false,
-          "autoincrement": false,
-          "primary": false,
-          "nullable": false,
-          "length": 6,
-          "mappedType": "datetime"
         }
       },
       "name": "wallet",
@@ -282,8 +272,8 @@
           "default": "8",
           "mappedType": "integer"
         },
-        "current_price": {
-          "name": "current_price",
+        "current_unit_price": {
+          "name": "current_unit_price",
           "type": "numeric(20,8)",
           "unsigned": false,
           "autoincrement": false,
@@ -367,14 +357,27 @@
           "scale": 8,
           "mappedType": "decimal"
         },
-        "price_per_unit": {
-          "name": "price_per_unit",
-          "type": "int",
+        "cripto_price_per_unit": {
+          "name": "cripto_price_per_unit",
+          "type": "numeric(20,8)",
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": true,
-          "mappedType": "integer"
+          "nullable": false,
+          "precision": 20,
+          "scale": 8,
+          "mappedType": "decimal"
+        },
+        "total_price_transaction": {
+          "name": "total_price_transaction",
+          "type": "numeric(20,8)",
+          "unsigned": false,
+          "autoincrement": false,
+          "primary": false,
+          "nullable": false,
+          "precision": 20,
+          "scale": 8,
+          "mappedType": "decimal"
         },
         "executed_at": {
           "name": "executed_at",
@@ -401,7 +404,7 @@
           "unsigned": false,
           "autoincrement": false,
           "primary": false,
-          "nullable": true,
+          "nullable": false,
           "mappedType": "uuid"
         }
       },
@@ -443,7 +446,6 @@
             "cripto_id"
           ],
           "referencedTableName": "public.cripto",
-          "deleteRule": "set null",
           "updateRule": "cascade"
         }
       },

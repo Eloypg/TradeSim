@@ -8,7 +8,7 @@ import {
 } from '@mikro-orm/core';
 import { User } from '../../user/entities/user.entity';
 import { Cripto } from '../../cripto/entities/cripto.entity';
-import { Transaction } from 'src/transaction/entities/transaction.entity';
+import { Transaction } from '../../transaction/entities/transaction.entity';
 
 @Entity()
 export class Wallet {
@@ -20,9 +20,6 @@ export class Wallet {
 
   @Property()
   createdAt: Date = new Date();
-
-  @Property()
-  updatedAt?: Date;
 
   @OneToOne(() => User, (user) => user.wallet)
   user!: User;
