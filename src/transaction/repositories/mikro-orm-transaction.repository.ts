@@ -76,7 +76,11 @@ export class MikroOrmTransactionRepository extends TransactionRepository {
 
   async findOneById(id: string): Promise<TransactionModel | null> {
     const em = this.entityManager.fork();
-    const transaction = await em.findOne(Transaction, { transactionId: id });
+    const transaction = await em.findOne(
+      Transaction,
+      { transactionId: id },
+      { populate: ['cripto', 'wallet'] },
+    );
     return transaction
       ? TransactionAdapter.fromEntityToModel(transaction)
       : null;

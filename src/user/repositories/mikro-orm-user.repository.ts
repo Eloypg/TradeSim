@@ -93,6 +93,8 @@ export class MikroOrmUserRepository extends UserRepository {
 
     const user = em.getReference(User, id);
 
+    await em.nativeDelete(Wallet, user.wallet);
+
     await em.remove(user).flush();
 
     return UserAdapter.fromEntityToModel(user);
