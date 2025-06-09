@@ -18,9 +18,6 @@ export class CriptoReferenceResponseDto {
 
   @ApiProperty({ example: 45000.75 })
   currentUnitPrice: number;
-
-  @ApiProperty({ type: () => WalletReferenceResponseDto })
-  wallet: WalletReferenceResponseDto;
 }
 export class TransactionResponseDto {
   @ApiProperty({ enum: TransactionType, example: TransactionType.BUY })

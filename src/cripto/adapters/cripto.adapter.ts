@@ -22,9 +22,6 @@ export class CriptoAdapter {
       name: model.name,
       precision: model.precision,
       currentUnitPrice: model.currentUnitPrice,
-      wallet: {
-        walletId: model.wallet.walletId,
-      },
     };
   }
 }
