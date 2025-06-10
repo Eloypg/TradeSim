@@ -1,26 +1,26 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { UserController } from '../../controllers/user.controller';
+import { WalletController } from '../../controllers/wallet.controller';
 import { mock, MockProxy } from 'jest-mock-extended';
-import { UserService } from '../../services/user.service';
+import { WalletService } from '../../services/wallet.service';
 
-describe('UserController', () => {
-  let controller: UserController;
-  let service: MockProxy<UserService>;
+describe('WalletController', () => {
+  let controller: WalletController;
+  let service: MockProxy<WalletService>;
 
   beforeEach(async () => {
-    service = mock<UserService>();
+    service = mock<WalletService>();
 
     const module: TestingModule = await Test.createTestingModule({
-      controllers: [UserController],
+      controllers: [WalletController],
       providers: [
         {
-          provide: UserService,
+          provide: WalletService,
           useValue: service,
         },
       ],
     }).compile();
 
-    controller = module.get<UserController>(UserController);
+    controller = module.get<WalletController>(WalletController);
   });
 
   it('should be defined', () => {
@@ -28,4 +28,4 @@ describe('UserController', () => {
   });
 
   // Add more test cases here based on the controller methods
-});
+}); 

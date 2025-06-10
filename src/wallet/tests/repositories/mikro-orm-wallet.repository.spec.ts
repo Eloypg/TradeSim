@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MikroOrmUserRepository } from '../../repositories/mikro-orm-user.repository';
+import { MikroOrmWalletRepository } from '../../repositories/mikro-orm-wallet.repository';
 import { EntityManager } from '@mikro-orm/core';
 import { mock, MockProxy } from 'jest-mock-extended';
-import { User } from '../../entities/user.entity';
+import { Wallet } from '../../entities/wallet.entity';
 
-describe('MikroOrmUserRepository', () => {
-  let repository: MikroOrmUserRepository;
+describe('MikroOrmWalletRepository', () => {
+  let repository: MikroOrmWalletRepository;
   let entityManager: MockProxy<EntityManager>;
 
   beforeEach(async () => {
@@ -13,7 +13,7 @@ describe('MikroOrmUserRepository', () => {
 
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        MikroOrmUserRepository,
+        MikroOrmWalletRepository,
         {
           provide: EntityManager,
           useValue: entityManager,
@@ -21,7 +21,7 @@ describe('MikroOrmUserRepository', () => {
       ],
     }).compile();
 
-    repository = module.get<MikroOrmUserRepository>(MikroOrmUserRepository);
+    repository = module.get<MikroOrmWalletRepository>(MikroOrmWalletRepository);
   });
 
   it('should be defined', () => {
@@ -29,5 +29,4 @@ describe('MikroOrmUserRepository', () => {
   });
 
   // Add more test cases here based on the repository methods
-});
-
+}); 
