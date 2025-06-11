@@ -1,11 +1,11 @@
 import { CriptoModel } from 'src/cripto/models/cripto.model';
 import { Wallet } from '../entities/wallet.entity';
 import { WalletModel } from '../models/wallet.model';
-import { Cripto } from 'src/cripto/entities/cripto.entity';
-import { CriptoAdapter } from 'src/cripto/adapters/cripto.adapter';
-import { Transaction } from 'src/transaction/entities/transaction.entity';
-import { TransactionModel } from 'src/transaction/models/transaction.model';
-import { TransactionAdapter } from 'src/transaction/adapters/transaction.adapter';
+import { Cripto } from '../../cripto/entities/cripto.entity';
+import { CriptoAdapter } from '../../cripto/adapters/cripto.adapter';
+import { Transaction } from '../../transaction/entities/transaction.entity';
+import { TransactionModel } from '../../transaction/models/transaction.model';
+import { TransactionAdapter } from '../../transaction/adapters/transaction.adapter';
 import { WalletResponseDto } from '../dto/wallet-response.dto';
 
 export class WalletAdapter {

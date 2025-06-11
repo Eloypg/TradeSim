@@ -1,4 +1,4 @@
-import { CriptoAdapter } from 'src/cripto/adapters/cripto.adapter';
+import { CriptoAdapter } from '../../cripto/adapters/cripto.adapter';
 import { Transaction } from '../entities/transaction.entity';
 import { TransactionModel } from '../models/transaction.model';
 import { TransactionResponseDto } from '../dto/transaction-response.dto';
