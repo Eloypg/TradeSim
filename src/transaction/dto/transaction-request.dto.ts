@@ -9,7 +9,7 @@ import {
   IsString,
 } from 'class-validator';
 import { Type } from 'class-transformer';
-import { TransactionType } from 'src/common/enums/transaction-type.enum';
+import { TransactionType } from '../../common/enums/transaction-type.enum';
 
 class WalletReferenceDto {
   @ApiProperty({
