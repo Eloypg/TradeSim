@@ -4,7 +4,7 @@ import { UserModel } from '../models/user.model';
 import { randomUUID } from 'crypto';
 import { User } from '../entities/user.entity';
 import { UserAdapter } from '../adapters/user.adapter';
-import { Wallet } from 'src/wallet/entities/wallet.entity';
+import { Wallet } from '../../wallet/entities/wallet.entity';
 import { UpdateUserRequest } from '../types/update-user.request.type';
 import { Injectable, NotFoundException } from '@nestjs/common';
 
